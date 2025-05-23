@@ -2,6 +2,7 @@ import type { Command } from "@react-native-community/cli-types";
 
 import bundleFederatedRemote from "./command";
 import options from "./options";
+import loadMetroConfig from "./utils/loadMetroConfig";
 
 const bundleMFRemoteCommand: Command = {
   name: "bundle-mf-remote",
@@ -12,4 +13,4 @@ const bundleMFRemoteCommand: Command = {
   options,
 };
 
-export default [bundleMFRemoteCommand];
+export default [bundleMFRemoteCommand, loadMetroConfig];

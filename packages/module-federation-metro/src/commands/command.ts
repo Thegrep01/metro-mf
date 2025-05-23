@@ -12,6 +12,7 @@ import relativizeSerializedMap from "./utils/relativizeSerializedMap";
 import { CLIError } from "./utils/cliError";
 import { createResolver } from "./utils/createResolver";
 import { createModulePathRemapper } from "./utils/createModulePathRemapper";
+import { ConfigT } from "metro-config";
 
 declare global {
   var __METRO_FEDERATION_CONFIG: ModuleFederationConfigNormalized;
@@ -148,7 +149,7 @@ async function bundleFederatedRemote(
   _argv: Array<string>,
   ctx: Config,
   args: BundleCommandArgs
-): Promise<void> {
+): Promise<ConfigT> {
   const rawConfig = await loadMetroConfig(ctx, {
     maxWorkers: args.maxWorkers,
     resetCache: args.resetCache,
@@ -374,6 +375,8 @@ async function bundleFederatedRemote(
     const manifestOutputFilepath = path.resolve(outputDir, "mf-manifest.json");
     await fs.copyFile(manifestFilepath, manifestOutputFilepath);
     console.info(`Done writing MF Manifest to ${manifestOutputFilepath}`);
+
+    return config;
   } finally {
     // incomplete types - this should be awaited
     await server.end();
