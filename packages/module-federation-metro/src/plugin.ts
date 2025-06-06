@@ -10,6 +10,7 @@ import {
   Shared,
 } from "./types";
 import { ConfigError } from "./utils/errors";
+import { createManifest } from "./utils/create-manifest";
 
 declare global {
   var __METRO_FEDERATION_CONFIG: ModuleFederationConfigNormalized;
@@ -388,9 +389,7 @@ function withModuleFederation(
     mfConfig: options,
   });
 
-  const manifestPath = path.join(mfMetroPath, MANIFEST_FILENAME);
-  const manifest = generateManifest(options);
-  fs.writeFileSync(manifestPath, JSON.stringify(manifest, undefined, 2));
+  const manifestPath = createManifest(mfMetroPath, MANIFEST_FILENAME, options);
 
   // pass data to bundle-mf-remote command
   global.__METRO_FEDERATION_CONFIG = options;
