@@ -1,0 +1,19 @@
+packages:
+  - packages/*
+  - apps/*
+
+autoInstallPeers: false
+
+onlyBuiltDependencies:
+  - "@biomejs/biome"
+  - core-js
+
+patchedDependencies:
+  lottie-react-native: patches/lottie-react-native.patch
+
+publicHoistPattern:
+  - "@babel/runtime"
+  - "@react-native/gradle-plugin"
+  - "@react-native/codegen"
+
+updateNotifier: false

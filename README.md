@@ -1,4 +1,4 @@
-# metro-mf
+# Module Federation for Metro Bundler
 
 ## Getting Started
 
@@ -18,13 +18,13 @@ npm install -g corepack
 1. Clone the repository with submodules:
 
 ```bash
-git clone --recurse-submodules -j8 git@github.com:module-federation/metro-mf.git
+git clone --recurse-submodules -j8 git@github.com:module-federation/metro.git mf-metro
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-cd metro-mf
+cd mf-metro
 ```
 
 3. Enable Corepack and install dependencies in the monorepo:
@@ -47,16 +47,10 @@ yarn set version 1.22.22 && yarn install
 
 ## Development
 
-Set the `METRO_FEDERATION_DEV` environment variable in your shell:
-
-```bash
-export METRO_FEDERATION_DEV=1
-```
-
-Then, run the development servers for both apps:
+Run the development servers for both showcase apps:
 
 ```bash
 yarn dev
 ```
 
-> **Note:** You can freely make changes to both the `module-federation-metro` package (`packages/module-federation-metro`) and the `metro` packages (`external/metro`). The dev server will automatically restart when changes are detected - there's no need to manually build either package.
+> **Note:** You can freely make changes to both the `@module-federation/metro` package (`packages/core`) and the the dev server will automatically restart when changes are detected - there's no need to manually build either package.

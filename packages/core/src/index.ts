@@ -1,0 +1,1 @@
+export { withModuleFederation } from './plugin';

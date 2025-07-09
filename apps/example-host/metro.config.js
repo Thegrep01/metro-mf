@@ -1,5 +1,5 @@
-const path = require('path');
-const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+const path = require('node:path');
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
 const {withModuleFederation} = require('module-federation-metro');
 const {withZephyr} = require('zephyr-metro-plugin');
@@ -12,10 +12,10 @@ const {withZephyr} = require('zephyr-metro-plugin');
  */
 
 const config = {
+  resolver: { useWatchman: false },
   watchFolders: [
     path.resolve(__dirname, '../../node_modules'),
-    path.resolve(__dirname, '../../external/metro/packages'),
-    path.resolve(__dirname, '../../packages/module-federation-metro'),
+    path.resolve(__dirname, '../../packages/core'),
   ],
 };
 
@@ -30,20 +30,14 @@ async function getConfig() {
       react: {
         singleton: true,
         eager: true,
-        requiredVersion: '19.0.0',
-        version: '19.0.0',
+        requiredVersion: '19.1.0',
+        version: '19.1.0',
       },
       'react-native': {
         singleton: true,
         eager: true,
-        requiredVersion: '0.79.0',
-        version: '0.79.0',
-      },
-      'react-native/Libraries/Network/RCTNetworking': {
-        singleton: true,
-        eager: true,
-        requiredVersion: '0.79.0',
-        version: '0.79.0',
+        requiredVersion: '0.80.0',
+        version: '0.80.0',
       },
       lodash: {
         singleton: false,
@@ -59,6 +53,13 @@ async function getConfig() {
   return withModuleFederation(
     mergeConfig(getDefaultConfig(__dirname), config),
     zephyrConfig,
+    {
+      flags: {
+        unstable_patchHMRClient: true,
+        unstable_patchInitializeCore: true,
+        unstable_patchRuntimeRequire: true,
+      },
+    }
   );
 }
 

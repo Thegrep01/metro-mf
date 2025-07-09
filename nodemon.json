@@ -4,8 +4,7 @@
   "watch": [
     "./node_modules",
     "../../node_modules",
-    "../../external/metro",
-    "../../packages/module-federation-metro",
+    "../../packages/core",
     "./metro.config.js"
   ],
   "ext": "ts,tsx,js,json,flow",

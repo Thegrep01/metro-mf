@@ -1,17 +1,21 @@
 {
-  "name": "metro-mf",
-  "packageManager": "yarn@4.8.1",
+  "name": "module-federation-metro",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "apps/*"
+  "license": "MIT",
+  "contributors": [
+    "Jakub Romańczyk <j.romanczyk@gmail.com> (https://github.com/jbroma)",
+    "Kacper Wiszczuk <kacperwiszczuk@gmail.com> (https://github.com/esemesek)"
   ],
-  "devDependencies": {
-    "turbo": "^2.5.0"
-  },
+  "packageManager": "pnpm@10.12.1",
+  "repository": "https://github.com/module-federation/metro",
   "scripts": {
-    "dev": "turbo dev --filter=showcase-host --filter=showcase-mini",
-    "dev:example": "turbo dev --filter=example-host --filter=example-mini --filter=example-nested-mini"
+    "prepare": "pnpm build",
+    "build": "turbo build",
+    "dev": "turbo dev --filter=showcase-host --filter=showcase-mini --ui=tui",
+    "dev:example": "turbo dev --filter=example-host --filter=example-mini --filter=example-nested-mini --ui=tui",
+    "lint": "biome check --write",
+    "lint:ci": "biome check",
+    "typecheck": "turbo typecheck"
   },
   "resolutions": {
     "is-ci": "3.0.1",
@@ -49,6 +53,8 @@
     "@module-federation/runtime-core@npm:0.11.4": "patch:@module-federation/runtime-core@npm%3A0.11.4#~/.yarn/patches/@module-federation-runtime-core-npm-0.11.4-46a703d27e.patch",
     "@react-native/community-cli-plugin@npm:0.79.0": "patch:@react-native/community-cli-plugin@npm%3A0.79.0#~/.yarn/patches/@react-native-community-cli-plugin-npm-0.79.0-d467a2c1a8.patch",
     "react-native": "patch:react-native@npm%3A0.79.0#~/.yarn/patches/react-native-npm-0.79.0-3bd84ed11a.patch",
-    "@rnef/plugin-metro": "patch:@rnef/plugin-metro@npm%3A0.7.20#~/.yarn/patches/@rnef-plugin-metro-npm-0.7.20-f8db692ffa.patch"
+    "@rnef/plugin-metro": "patch:@rnef/plugin-metro@npm%3A0.7.20#~/.yarn/patches/@rnef-plugin-metro-npm-0.7.20-f8db692ffa.patch",
+    "@biomejs/biome": "^1.9.4",
+    "turbo": "^2.5.0"
   }
 }

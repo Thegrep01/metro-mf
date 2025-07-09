@@ -1,8 +1,12 @@
 name: Android E2E Tests
+description: "Runs Android E2E tests"
 
 inputs:
   app_name:
-    description: 'Name of the app to test'
+    description: "Name of the app to test"
+    required: true
+  github_token:
+    description: 'GitHub token for authentication'
     required: true
 
 runs:
@@ -13,7 +17,7 @@ runs:
       with:
         submodules: true
         clean: true
-      
+
     - name: Setup KVM (Required for Android Emulator)
       run: |
         echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -21,44 +25,16 @@ runs:
         sudo udevadm trigger --name-match=kvm
       shell: bash
 
-    - name: AVD cache
-      uses: actions/cache@v4
-      id: avd-cache
-      with:
-        path: |
-          ~/.android/avd/*
-          ~/.android/adb*
-        key: avd-${{ env.ANDROID_EMULATOR_API_LEVEL }}-${{ env.ANDROID_EMULATOR_TARGET }}-${{ env.ANDROID_EMULATOR_ARCH }}-${{ runner.os }}
-
-    - name: Create AVD and generate snapshot for caching
-      if: steps.avd-cache.outputs.cache-hit != 'true'
-      uses: reactivecircus/android-emulator-runner@v2
-      with:
-        api-level: ${{ env.ANDROID_EMULATOR_API_LEVEL }}
-        target: ${{ env.ANDROID_EMULATOR_TARGET }}
-        arch: ${{ env.ANDROID_EMULATOR_ARCH }}
-        disk-size: ${{ env.ANDROID_EMULATOR_DISK_SPACE }}
-        force-avd-creation: false
-        disable-animations: true
-        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-        script: echo "Generated AVD snapshot for caching."
+    - uses: pnpm/action-setup@v3
 
     - name: Set up Node
       uses: actions/setup-node@v4
       with:
         node-version: 22
-
-    - name: Enable Corepack
-      run: corepack enable
-      shell: bash
+        cache: 'pnpm'
 
     - name: Install dependencies
-      run: yarn install
-      shell: bash
-
-    - name: Install Metro dependencies
-      working-directory: external/metro
-      run: yarn set version 1.22.22 && yarn install
+      run: pnpm install --frozen-lockfile
       shell: bash
 
     - name: Install Maestro CLI
@@ -67,10 +43,25 @@ runs:
         echo "${HOME}/.maestro/bin" >> $GITHUB_PATH
       shell: bash
 
+    - name: Local RNEF Setup
+      shell: bash
+      run: |
+        RNEF_PATH="apps/${{ inputs.app_name }}/.rnef/cache"
+        mkdir -p $RNEF_PATH
+        echo "{\"githubToken\": \"${{ inputs.github_token }}\"}" > "$RNEF_PATH/project.json"
+
     - name: E2E Prepare Script
       run: |
-        yarn workspace ${{ inputs.app_name }} e2e:prepare:android &
+        pnpm --filter ${{ inputs.app_name }} e2e:prepare:android
+        # Serve mini apps in the background
+        pnpm --filter ${{ inputs.app_name }} e2e:serve:android &
       shell: bash
+
+    - uses: callstackincubator/android@v1
+      with:
+        github-token: ${{ inputs.github_token }}
+        variant: 'Release'
+        working-directory: './apps/${{ inputs.app_name}}'
 
     - name: Run Android E2E Tests
       uses: reactivecircus/android-emulator-runner@v2
@@ -84,9 +75,9 @@ runs:
         disable-animations: true
         emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
         script: |
-          yarn workspace ${{ inputs.app_name }} android:release
-          yarn workspace ${{ inputs.app_name }} adbreverse
-          yarn workspace ${{ inputs.app_name }} e2e:run
+          pnpm --filter ${{ inputs.app_name }} android:release
+          pnpm --filter ${{ inputs.app_name }} adbreverse
+          pnpm --filter ${{ inputs.app_name }} e2e:run:android
 
     - name: Upload Maestro Logs on Failure
       if: failure() # Runs only if any of the previous steps fail
