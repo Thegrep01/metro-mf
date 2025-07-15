@@ -14,6 +14,15 @@ export function createManifest(
   return manifestPath;
 }
 
+export const updateManifest = (
+  manifestPath: string,
+  options: ModuleFederationConfigNormalized
+): string => {
+  const manifest = generateManifest(options);
+  fs.writeFileSync(manifestPath, JSON.stringify(manifest, undefined, 2));
+  return manifestPath;
+};
+
 function generateManifest(config: ModuleFederationConfigNormalized): Manifest {
   return {
     id: config.name,

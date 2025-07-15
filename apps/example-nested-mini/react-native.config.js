@@ -1,10 +1,10 @@
-const commands = require('module-federation-metro/commands');
+const commands = require('@module-federation/metro-plugin-rnc-cli');
 const path = require('path');
-const {updateManifest} = require('module-federation-metro');
+const {updateManifest} = require('@module-federation/metro');
 const {zephyrCommandWrapper} = require('zephyr-metro-plugin');
 
 const wrappedFuncPromise = zephyrCommandWrapper(
-  commands.bundleFederatedRemote,
+  commands.bundleMFRemoteCommand.func,
   commands.loadMetroConfig,
   () => {
     updateManifest(

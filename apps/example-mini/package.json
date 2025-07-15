@@ -12,15 +12,17 @@
     "pods": "(cd ios && bundle install && (bundle exec pod install || bundle exec pod update))",
     "build:ios": "rnef bundle-mf-remote --platform ios --dev false",
     "build:android": "rnef bundle-mf-remote --platform android --dev false",
+    "build:rnc:ios": "METRO_FEDERATION_DEV=1 react-native bundle-mf-remote --platform ios --dev false",
+    "build:rnc:android": "METRO_FEDERATION_DEV=1 react-native bundle-mf-remote --platform android --dev false",
     "serve:ios": "serve dist/ios -p 8082",
     "serve:android": "serve dist/android -p 8082",
     "adbreverse": "adb reverse tcp:8082 tcp:8082"
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "zephyr-metro-plugin": "/Users/denisbelocerkovec/Developer/zephyr/zephyr-packages/libs/zephyr-metro-plugin",
     "react": "19.1.0",
-    "react-native": "0.80.0"
+    "react-native": "0.80.0",
+    "zephyr-metro-plugin": "../../../zephyr-packages/libs/zephyr-metro-plugin"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -29,6 +31,7 @@
     "@module-federation/metro": "workspace:*",
     "@module-federation/metro-plugin-rnef": "workspace:*",
     "@module-federation/runtime": "^0.15.0",
+    "@react-native-community/cli": "^19.1.0",
     "@react-native/babel-preset": "0.80.0",
     "@react-native/eslint-config": "0.80.0",
     "@react-native/metro-config": "0.80.0",

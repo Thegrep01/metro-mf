@@ -1,7 +1,7 @@
 const commands = require('module-federation-metro/commands');
 const path = require('path');
 const {zephyrCommandWrapper} = require('zephyr-metro-plugin');
-const {updateManifest} = require('module-federation-metro');
+const {updateManifest} = require('@module-federation/metro');
 
 const zephyrCommand = {
   name: 'bundle',

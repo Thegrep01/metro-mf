@@ -2,12 +2,15 @@ import bundleFederatedHost, { bundleFederatedHostOptions } from './bundle-host';
 import bundleFederatedRemote, {
   bundleFederatedRemoteOptions,
 } from './bundle-remote';
+import loadMetroConfig from './utils/load-metro-config';
 
+console.log('loadMetroConfig', loadMetroConfig);
 export {
   bundleFederatedHost,
   bundleFederatedHostOptions,
   bundleFederatedRemote,
   bundleFederatedRemoteOptions,
+  loadMetroConfig,
 };
 
 export default {
@@ -15,6 +18,7 @@ export default {
   bundleFederatedHostOptions,
   bundleFederatedRemote,
   bundleFederatedRemoteOptions,
+  loadMetroConfig,
 };
 
 export type { BundleFederatedHostArgs } from './bundle-host/types';

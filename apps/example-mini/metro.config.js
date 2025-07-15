@@ -1,8 +1,10 @@
 const path = require('node:path');
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
-const {withModuleFederation} = require('module-federation-metro');
+const { withModuleFederation } = require('@module-federation/metro');
 const {withZephyr} = require('zephyr-metro-plugin');
+
+
 
 /**
  * Metro configuration
