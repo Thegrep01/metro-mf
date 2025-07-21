@@ -1,5 +1,5 @@
 {
-  "name": "nestedMini",
+  "name": "example-nested-mini",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -20,7 +20,6 @@
   },
   "dependencies": {
     "lodash": "4.16.6",
-    "zephyr-metro-plugin": "../../../zephyr-packages/libs/zephyr-metro-plugin",
     "react": "19.1.0",
     "react-native": "0.80.0"
   },

@@ -17,12 +17,6 @@
     "lint:ci": "biome check",
     "typecheck": "turbo typecheck"
   },
-  "resolutions": {
-    "zephyr-agent": "portal:../zephyr-packages/libs/zephyr-agent",
-    "zephyr-xpack-internal": "portal:../zephyr-packages/libs/zephyr-xpack-internal",
-    "zephyr-edge-contract": "portal:../zephyr-packages/libs/zephyr-edge-contract",
-    "zephyr-rollx-internal": "portal:../zephyr-packages/libs/zephyr-rollx-internal"
-  },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "turbo": "^2.5.0"

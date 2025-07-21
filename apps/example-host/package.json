@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "lodash": "4.16.6",
-    "zephyr-metro-plugin": "../../../zephyr-packages/libs/zephyr-metro-plugin",
     "react": "19.1.0",
     "react-native": "0.80.0"
   },

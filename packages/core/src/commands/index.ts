@@ -4,7 +4,6 @@ import bundleFederatedRemote, {
 } from './bundle-remote';
 import loadMetroConfig from './utils/load-metro-config';
 
-console.log('loadMetroConfig', loadMetroConfig);
 export {
   bundleFederatedHost,
   bundleFederatedHostOptions,
