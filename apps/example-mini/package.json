@@ -12,6 +12,8 @@
     "pods": "(cd ios && bundle install && (bundle exec pod install || bundle exec pod update))",
     "build:ios": "rnef bundle-mf-remote --platform ios --dev false",
     "build:android": "rnef bundle-mf-remote --platform android --dev false",
+    "build:rnc:ios": "react-native bundle-mf-remote --platform ios --dev false",
+    "build:rnc:android": "react-native bundle-mf-remote --platform android --dev false",
     "serve:ios": "serve dist/ios -p 8082",
     "serve:android": "serve dist/android -p 8082",
     "adbreverse": "adb reverse tcp:8082 tcp:8082"
@@ -28,6 +30,7 @@
     "@module-federation/metro": "workspace:*",
     "@module-federation/metro-plugin-rnef": "workspace:*",
     "@module-federation/runtime": "^0.15.0",
+    "@react-native-community/cli": "^19.1.0",
     "@react-native/babel-preset": "0.80.0",
     "@react-native/eslint-config": "0.80.0",
     "@react-native/metro-config": "0.80.0",
